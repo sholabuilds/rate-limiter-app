@@ -4,7 +4,7 @@
 
 ### 
 
-This program implements a rate limiter. which grants or denies request access to given endpoints, based on the amount of remaining tokens available. 
+This program implements a rate limiter built in a time-boxed approach. The rate limiter grants or denies request access to given endpoints, based on the amount of remaining tokens available. 
 
 A token bucket algorithm has been utilised to calculate the amount of tokens, based on each given endpoints' burst and sustained limit.
 
@@ -24,11 +24,11 @@ The `express` library has been utilized to implement the server side functionali
 
 The `mocha` libraries have been utilized for basic testing of the various modules, with the goal of improving maintainability. 
 
-Additionally, we utilize `dotenv` to securely store API keys and endpoints.
+Additionally, I utilize `dotenv` to securely store API keys and endpoints.
 
-### Other known considerations - i.e. edge cases (if there were more time or were to scale the solution)
+### Other known considerations - i.e. edge cases (if I were to scale the solution)
 
-1. Concurrent requests: there might be potential race conditions in the event multiple requests are made simulateneously to the same endpoint where the token count is not properly synchronized. Given more time, I'd consider implement a locking/sync mechanism to cover this edge case.
+1. Concurrent requests: there might be potential race conditions in the event multiple requests are made simulateneously to the same endpoint where the token count is not properly synchronized. Given more time, I'd consider implementing a locking/sync mechanism to cover this edge case.
 2. We are assuming positive burst and sustained rates but in a real world scenario, there could potentially be negative or zero burst and sustained rates.
 3. Token expiry: currently we are not handling the edge case where a token might expire, but it is a reasonable expectation to handle in a real-world scenario.
 4. Token refills calculation: as we're using the Date.now() object to calculate last refill time, we run the risk of encountering precision issues over time, when calculating the number of tokens to refill. Ideally, we'd want to improve the algorithm to improve the precision of calculation.
